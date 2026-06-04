@@ -3417,34 +3417,39 @@ html body #header_slider .caption .headline {
 }
 
 /* Attorney profile fact rows (取扱分野 / 資格 / 経歴) on the single page */
+/* Rendered as a native wp:table block (.gl-facts). core/html blocks are stripped
+   on this install, so the dl variant is kept only as fallback reference. */
+.gl-facts.wp-block-table,
 .gl-facts {
-    max-width: 720px;
-    margin: 8px auto 0;
+    max-width: 760px;
+    margin: 8px auto 24px;
+}
+.gl-facts table {
+    width: 100%;
+    border-collapse: collapse;
     border-top: 1px solid var(--gm-hair);
 }
-.gl-facts dl {
-    display: grid;
-    grid-template-columns: 160px 1fr;
-    gap: 0;
-    margin: 0;
-}
-.gl-facts dt {
-    font-family: var(--gm-serif);
-    font-weight: 600;
-    color: var(--gm-navy);
-    padding: 16px 18px;
-    border-bottom: 1px solid var(--gm-hair);
-    background: var(--gm-ivory-2);
-    letter-spacing: .06em;
-}
-.gl-facts dd {
-    margin: 0;
-    padding: 16px 18px;
+.gl-facts td {
+    padding: 15px 18px;
     border-bottom: 1px solid var(--gm-hair);
     color: var(--gm-ink);
     line-height: 1.85;
+    vertical-align: top;
+    text-align: left;
 }
+.gl-facts td:first-child {
+    width: 150px;
+    font-family: var(--gm-serif);
+    font-weight: 600;
+    color: var(--gm-navy);
+    background: var(--gm-ivory-2);
+    letter-spacing: .06em;
+    white-space: nowrap;
+}
+.gl-facts dl { display: grid; grid-template-columns: 150px 1fr; margin: 0; }
+.gl-facts dt { font-family: var(--gm-serif); font-weight: 600; color: var(--gm-navy); padding: 15px 18px; border-bottom: 1px solid var(--gm-hair); background: var(--gm-ivory-2); }
+.gl-facts dd { margin: 0; padding: 15px 18px; border-bottom: 1px solid var(--gm-hair); line-height: 1.85; }
 @media (max-width: 600px) {
+    .gl-facts td:first-child { width: 120px; white-space: normal; }
     .gl-facts dl { grid-template-columns: 1fr; }
-    .gl-facts dt { border-bottom: none; padding-bottom: 6px; }
 }
