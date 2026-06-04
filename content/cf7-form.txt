@@ -1,0 +1,30 @@
+<label>目的（必須）
+[select* your-purpose "掲載申込（ご自身）" "情報提供（同窓推薦）" "取材・メディアのご依頼" "ご意見・ご要望" "その他のお問い合わせ"]</label>
+
+<label>お名前（必須）
+[text* your-name autocomplete:name]</label>
+
+<label>メールアドレス（必須）
+[email* your-email autocomplete:email]</label>
+
+<label>お電話番号
+[tel your-tel autocomplete:tel]</label>
+
+<label>暁星ご卒業年度
+[text your-grad-year placeholder "例：2000年卒"]</label>
+
+<label>ご所属の法律事務所名（肩書きがあれば併記）
+[text your-firm placeholder "例：〇〇法律事務所 パートナー"]</label>
+
+<label>主な取扱分野
+[text your-practice placeholder "例：企業法務、労働、相続"]</label>
+
+<label>件名（必須）
+[text* your-subject]</label>
+
+<label>お問い合わせ内容（必須）
+[textarea* your-message]</label>
+
+[acceptance acceptance-1] プライバシーポリシーに同意します [/acceptance]
+
+[submit "送信する"]

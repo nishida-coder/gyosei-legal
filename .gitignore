@@ -1,0 +1,9 @@
+.DS_Store
+Thumbs.db
+*.log
+node_modules/
+.vscode/
+.idea/
+
+# Lawyer headshots — uploaded to WP Media library, not version-controlled
+assets/img/

@@ -1,0 +1,23 @@
+{
+  "model_case": "GYOSEI LEGAL listing #1",
+  "post_title": "折田 裕彦",
+  "post_name": "orita-hirohiko",
+  "post_status": "publish",
+  "post_type": "post",
+  "body_file": "content/lawyers/orita-hirohiko.html",
+  "featured_image": "assets/img/lawyers/orita-hirohiko.jpg",
+  "meta": {
+    "gl_firm": "法律事務所ASCOPE 代表・パートナー弁護士"
+  },
+  "taxonomy": {
+    "category": ["企業法務", "労働", "相続"],
+    "category2": ["東京"],
+    "category3": ["2005年卒"]
+  },
+  "source": "https://ascope.net/staff/#oritahirohiko",
+  "notes": [
+    "暁星学園2005年卒（しもん様確認済）— GYOSEI LEGAL掲載要件を満たす。",
+    "弁護士本人が主役。事務所ロゴは使用せず gl_firm のテキストで表現。",
+    "アイキャッチには assets/img/lawyers/orita-hirohiko.jpg をアップロードして設定。"
+  ]
+}
