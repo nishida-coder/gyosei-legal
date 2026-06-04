@@ -92,10 +92,16 @@ git clone https://github.com/nishida-coder/gyosei-legal.git gensen-legal
 # WP管理画面 → 外観 → テーマ → GYOSEI LEGAL を有効化
 ```
 
-### ⑤ 固定ページ・CF7・モデルケース投入
+### ⑤ プラグイン・固定ページ・CF7・モデルケース投入
+- **Advanced Custom Fields（ACF）を必ず導入**（`wp plugin install advanced-custom-fields --activate`）。
+  親テーマ `gensen_tcd050` の single.php はアイキャッチ表示ブロック内で ACF の `get_field('incho_img')`
+  等を呼ぶため、ACF未導入だとアイキャッチ付き投稿で本文(the_content)が描画されない。姉妹サイトは導入済み。
 - Contact Form 7 を導入し `content/cf7-*.txt/json` でフォーム作成 → 採番されたIDを各 `CF7_ID` に反映
 - 固定ページ contact / join / management を `content/*.html` で作成
 - モデルケース #1（折田弁護士）を `content/lawyers/orita-hirohiko.*` から投入、写真をアイキャッチ設定
+
+> **投稿本文の注意**: `wp:html`(core/html) ブロックは本番フロントで除去される。表組み等は
+> `wp:table` 等のネイティブブロックを使うこと。本文先頭に長い HTML コメントを置かない。
 
 ### 更新（push後の反映）
 ```bash
