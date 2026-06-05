@@ -399,24 +399,30 @@ function gyosei_force_https_buffer() {
 function gyosei_legal_rewrite($html) {
     if (!is_string($html) || $html === '') return $html;
 
-    // 1) Force HTTPS on own + sister asset URLs (mixed-content safety).
-    $patterns = [
-        'http://gyosei-legal.jp/',
-        'http://www.gyosei-legal.jp/',
-        'http://gyosei-medical.com/',
-        'http://www.gyosei-medical.com/',
-        'http://gyosei-dental.com/',
-        'http://www.gyosei-dental.com/',
-    ];
-    $replace = [
-        'https://gyosei-legal.jp/',
-        'https://www.gyosei-legal.jp/',
-        'https://gyosei-medical.com/',
-        'https://www.gyosei-medical.com/',
-        'https://gyosei-dental.com/',
-        'https://www.gyosei-dental.com/',
-    ];
-    $html = str_replace($patterns, $replace, $html);
+    // 1) Force HTTPS on own + sister asset URLs (mixed-content safety) — ONLY when
+    //    the current request is itself HTTPS. Before the free SSL cert is issued the
+    //    site is served over plain HTTP; upgrading asset URLs to https:// then points
+    //    every stylesheet/script at a non-existent certificate and the page renders
+    //    completely unstyled. Gate on is_ssl() so http stays http until SSL is live.
+    if (is_ssl()) {
+        $patterns = [
+            'http://gyosei-legal.jp/',
+            'http://www.gyosei-legal.jp/',
+            'http://gyosei-medical.com/',
+            'http://www.gyosei-medical.com/',
+            'http://gyosei-dental.com/',
+            'http://www.gyosei-dental.com/',
+        ];
+        $replace = [
+            'https://gyosei-legal.jp/',
+            'https://www.gyosei-legal.jp/',
+            'https://gyosei-medical.com/',
+            'https://www.gyosei-medical.com/',
+            'https://gyosei-dental.com/',
+            'https://www.gyosei-dental.com/',
+        ];
+        $html = str_replace($patterns, $replace, $html);
+    }
 
     // 2) Strip `js-ellipsis` from listing titles inside #post_list so the parent
     //    theme's textOverflowEllipsis() doesn't truncate the name after a <br>.
