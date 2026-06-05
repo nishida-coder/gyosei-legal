@@ -105,6 +105,12 @@ foreach (($meta['meta'] ?? []) as $k => $v) { update_post_meta($post_id, $k, $v)
 // taxonomies
 foreach (($meta['taxonomy'] ?? []) as $tax => $names) { gl_set_terms($post_id, $tax, $names); }
 
+// practice-scope tags (対応法務の範囲 → #企業法務 etc.)
+if (!empty($meta['tags']) && is_array($meta['tags'])) {
+    wp_set_post_tags($post_id, $meta['tags'], false);
+    gl_log('tags set: ' . implode(', ', $meta['tags']));
+}
+
 // featured image (photo staged on server next to the json)
 $photo = $content . '/lawyers/orita-hirohiko.jpg';
 if (file_exists($photo) && !has_post_thumbnail($post_id)) {

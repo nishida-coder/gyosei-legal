@@ -372,6 +372,25 @@ add_action('wp_head', function () {
 }, 3);
 
 /**
+ * Append practice-scope tag chips (対応法務の範囲) to single attorney pages.
+ * Driven by WP post tags so each listing carries its own #企業法務 #離婚 etc.
+ */
+add_filter('the_content', function ($content) {
+    if (is_singular('post') && in_the_loop() && is_main_query()) {
+        $tags = get_the_tags();
+        if ($tags && !is_wp_error($tags)) {
+            $chips = '';
+            foreach ($tags as $t) {
+                $chips .= '<a class="gl-tag" href="' . esc_url(get_tag_link($t->term_id)) . '">#' . esc_html($t->name) . '</a>';
+            }
+            $content .= '<div class="gl-tags"><span class="gl-tags-label">対応法務の範囲</span>'
+                      . '<div class="gl-tags-list">' . $chips . '</div></div>';
+        }
+    }
+    return $content;
+}, 20);
+
+/**
  * Hint AI crawlers explicitly via robots meta (complement robots.txt).
  */
 add_filter('wp_robots', function ($robots) {
@@ -423,6 +442,15 @@ function gyosei_legal_rewrite($html) {
         ];
         $html = str_replace($patterns, $replace, $html);
     }
+
+    // 1b) Neutralize the medical-site logo hardcoded in the parent header.php
+    //     (a cross-site <img> to gyosei-medical.com) with a clean text wordmark
+    //     placeholder until the real GYOSEI LEGAL logo is supplied.
+    $html = preg_replace(
+        '#<div id="header_logo">.*?</a></div>#us',
+        '<div id="header_logo"><a href="' . esc_url(home_url('/')) . '" class="gl-wordmark">GYOSEI LEGAL</a></div>',
+        $html
+    );
 
     // 2) Strip `js-ellipsis` from listing titles inside #post_list so the parent
     //    theme's textOverflowEllipsis() doesn't truncate the name after a <br>.
