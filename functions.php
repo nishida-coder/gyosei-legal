@@ -25,6 +25,13 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+// XServer terminates SSL at a reverse proxy and forwards the original scheme in
+// X-Forwarded-Proto. Reflect it into $_SERVER['HTTPS'] so is_ssl() reports true
+// on HTTPS requests (otherwise mixed-content / canonical-redirect issues appear).
+if (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') {
+    $_SERVER['HTTPS'] = 'on';
+}
+
 define('GLEGAL_CHILD_VERSION', '1.0.0');
 
 add_action('wp_enqueue_scripts', function () {
